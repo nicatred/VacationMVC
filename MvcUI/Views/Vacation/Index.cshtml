@@ -1,0 +1,80 @@
+﻿@model VacationRequestViewModel
+<!--Index-->
+<div id="vacationFormIndex" class="container">
+    <!-- Contact Section-->
+    <section class="page-section" id="contact">
+        <div class="container">
+            <!-- Contact Section Heading-->
+            <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Tələbnamənin yaradılması</h2>
+            <!-- Icon Divider-->
+            <div class="divider-custom">
+                <div class="divider-custom-line"></div>
+                <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                <div class="divider-custom-line"></div>
+            </div>
+            <!-- Contact Section Form-->
+            <div class="row justify-content-center">
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- * * SB Forms Contact Form * *-->
+                <!-- * * * * * * * * * * * * * * *-->
+                <!-- This form is pre-integrated with SB Forms.-->
+                <!-- To make this form functional, sign up at-->
+                <!-- https://startbootstrap.com/solution/contact-forms-->
+                <!-- to get an API token!-->
+                <!-- Start Vacation-->
+                <form class="mb-lg-8" method="Post" asp-controller="Vacation" asp-action="CreateVacationRequset">
+                    <div class="col-md-12">
+                        <label for="inputName" class="form-label">Ad,Soyad,Ata adı</label>
+                        <input type="text" class="form-control" id="inputName" asp-for="VacationRequestDto.VacationerFullName">
+                        <div class="invalid-feedback" data-sb-feedback="inputName:required">A name is required.</div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="inputPosition" class="form-label">Vəzifə</label>
+                        <input type="text" class="form-control" id="inputPosition" asp-for="VacationRequestDto.VacationerPosition">
+                    </div>
+                    <div class="col-md-8">
+                        <div id="date-picker-example" class="md-form md-outline input-with-post-icon datetimepicker">
+                            <label for="startVacationInput" style="color: #4f4f4f ">Məzuniyyətin başlama tarixi</label>
+                            <input type="date" id="startVacationInput" class="form-control" asp-for="VacationRequestDto.StartVacation">
+                        </div>
+                    </div>
+                    <div>
+                        <div class="col-md-8">
+                            <div id="date-picker-example" class="md-form md-outline input-with-post-icon datetimepicker">
+                                <label for="endVacationInput" style="color: #4f4f4f ">Məzuniyyətin bitmə tarixi</label>
+                                <input type="date" id="endVacationInput" class="form-control" asp-for="VacationRequestDto.EndVacation">
+                            </div>
+                        </div>
+                        <div class="col-md-4" style="margin-top:25px;">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="isWeekendIncluded" asp-for="VacationRequestDto.IsIncludedWeekend">
+                                <label class="form-check-label " for="isWeekendIncluded">
+                                    Həftə sonu daxildirmi?
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label for="replacmentPerson" class="form-label">Əvəz edən şəxsin Ad,Soyad,Ata adı</label>
+                        <input type="text" class="form-control" id="replacmentPerson" asp-for="VacationRequestDto.ReplacementPerson">
+                    </div>
+                    <div class="col-md-12" style="margin-top:17px">
+                        <select class="form-select form-select-lg mb-4" aria-label=".form-select-lg" asp-for="VacationRequestDto.VacationTypeId"
+                                asp-items="@(new SelectList(Model.VacationTypes, nameof(Model.VacationType.Id), nameof(Model.VacationType.Name)))">
+                            <option>Məzuniyyət növünü seçin</option>
+                        </select>
+                    </div>
+                    <button type="submit">Yarat</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+</div>
+<!--End Index-->
+<script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>

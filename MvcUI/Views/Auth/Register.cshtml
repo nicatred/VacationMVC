@@ -1,0 +1,63 @@
+﻿@model RegisterDto
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+
+<div class="container">
+    <hr>
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <header class="card-header">
+                    <a href="" class="float-right btn btn-outline-primary mt-1">Log in</a>
+                    <h4 class="card-title mt-2">Qeydiyyat</h4>
+                </header>
+                <article class="card-body">
+                    <form method="post" asp-controller="Auth" asp-action="Register"> 
+                        <div class="form-row">
+                            <div class="col form-group">
+                                <label>Ad</label>
+                                <input type="text" class="form-control" placeholder="" asp-for="@Model.Name">
+                            </div> <!-- form-group end.// -->
+                            <div class="col form-group">
+                                <label>Soyad</label>
+                                <input type="text" class="form-control" placeholder=" " asp-for="@Model.SurName">
+                            </div> <!-- form-group end.// -->
+                        </div> <!-- form-row end.// -->
+                        <div class="form-group">
+                            <label>E-Poçt ünvanı</label>
+                            <input type="email" class="form-control" placeholder="" asp-for="@Model.Email">
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="1" asp-for="@Model.Gender">
+                                <span class="form-check-label"> Kişi </span>
+                            </label>
+                            <label class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" value="2" asp-for="@Model.Gender">
+                                <span class="form-check-label"> Qadın</span>
+                            </label>
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <label>Şifrə</label>
+                            <input class="form-control" type="password" asp-for="@Model.Password">
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block"> Qeydiyyat  </button>
+                        </div> <!-- form-group// -->
+                    </form>
+                </article> <!-- card-body end .// -->
+                <div class="border-top card-body text-center">Artıq qeydiyyatdan keçmisiniz? <a asp-controller="Auth" asp-action="Login">Giriş</a></div>
+            </div> <!-- card.// -->
+        </div> <!-- col.//-->
+
+    </div> <!-- row.//-->
+
+
+</div>
+<!--container end.//-->
+<link href="~/css/register.css" rel="stylesheet" />

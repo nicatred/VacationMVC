@@ -1,0 +1,44 @@
+﻿@model List<ListVacationRequestDto>
+<!--Index-->
+@foreach (var item in Model)
+{
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">#Müraciət nömrəsi</th>
+                <th scope="col">İşçi</th>
+                <th scope="col">Vəzifə</th>
+                <th scope="col">Əvəz edən şəxs</th>
+                <th scope="col">Məzuniyyə başlama tarixi</th>
+                <th scope="col">Məzuniyyin bitmə tarixi</th>
+                <th scope="col">Məzuniyyətin növü</th>
+                <th scope="col">Müraciət statusu</th>
+                <th scope="col">Yaradılma tarixi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">@item.RequestNo</th>
+                <td>@item.VacationerFullName</td>
+                <td>@item.VacationerPosition</td>
+                <td>@item.ReplacementPerson</td>
+                <td>@item.StartVacation.ToString("dd-MM-yyyy")</td>
+                <td>@item.EndVacation.ToString("dd-MM-yyyy")</td>
+                <td>@item.VacationType</td>
+                <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.Created)
+                {
+                    <td><a asp-controller="Vacation" asp-action="SendToManager" asp-route-id="@item.Id">Rəhbərə göndər</a></td>
+                }
+            </tr>
+        </tbody>
+    </table>
+}
+
+<a asp-controller="Vacation" asp-action="CreateVacationRequset">Məzuniyyət tələbnaməsi yarat</a>
+<!--End Index-->
+<script>
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+</script>

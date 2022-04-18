@@ -1,0 +1,15 @@
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\DataAccess.deps.json
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\DataAccess.dll
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\ref\DataAccess.dll
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\DataAccess.pdb
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.AssemblyInfoInputs.cache
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.AssemblyInfo.cs
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.dll
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\ref\DataAccess.dll
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.pdb
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\DataAccess.runtimeconfig.json
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\bin\Debug\net5.0\DataAccess.runtimeconfig.dev.json
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.genruntimeconfig.cache
+C:\Users\Nijatred\source\repos\Vacation\DataAccess\obj\Debug\net5.0\DataAccess.csproj.AssemblyReference.cache
