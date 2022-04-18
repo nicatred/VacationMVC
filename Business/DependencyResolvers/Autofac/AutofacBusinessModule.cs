@@ -12,11 +12,8 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<TokenManager>().As<ITokenService>().InstancePerLifetimeScope();
             builder.RegisterType<AuthManager>().As<IAuthService>().InstancePerLifetimeScope();
 
-            builder.RegisterType<EfUserDal>().As<IUserDal>().InstancePerLifetimeScope();
-            builder.RegisterType<UserManager>().As<IUserService>().InstancePerLifetimeScope();
 
             builder.RegisterType<VacationRequestManager>().As<IVacationRequestService>().InstancePerLifetimeScope();
             builder.RegisterType<EfVacationRequestDal>().As<IVacationRequestDal>().InstancePerLifetimeScope();

@@ -20,7 +20,7 @@ namespace MvcUI.Controllers
         }
        
         [HttpGet]
-
+        [Authorize(Roles = "vacationer")]
         public async Task<IActionResult> Index()
         {
             var list = await _requestService.GetList();

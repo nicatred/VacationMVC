@@ -13,7 +13,7 @@ namespace Business.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<RegisterDto, User>().ReverseMap();
+            CreateMap<RegisterDto, AppUser>().ReverseMap();
             CreateMap<VacationRequestDto, VacationRequest>().ReverseMap();
         }
     }

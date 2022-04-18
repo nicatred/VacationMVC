@@ -13,20 +13,32 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfVacationRequestDal : EfReporitoryBase<VacationRequest, VacationContext>, IVacationRequestDal
     {
-        public async Task<VacationRequest> GetLast(int userId)
+        public async Task<int> GenerateAndSetRequestNo(string userId)
         {
-            using(var context = new VacationContext())
+            using (var context = new VacationContext())
             {
-                return  await context.VacationRequests.Where(x => x.UserId == userId).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+               // _context.Database.SqlQuery<ProjectsModel>("exec dbo.[GetProjectListByID] @ProjectID", new SqlParameter("@ProjectID", projectId)).FirstOrDefault();
+               int rows =  await context.Database.ExecuteSqlInterpolatedAsync($"EXEC  GenerateRequestNumber {userId}");
+                return rows;
             }
         }
 
-        public async Task<List<ListVacationRequestDto>> GetList(int userId)
+        public async Task<VacationRequest> GetLast(string userId)
+        {
+            using (var context = new VacationContext())
+            {
+                return await context.VacationRequests.Where(x => x.UserId == userId).OrderByDescending(x => x.Id).FirstOrDefaultAsync();
+            }
+        }
+
+        public async Task<List<ListVacationRequestDto>> GetList(string userId)
         {
             using (var context = new VacationContext())
             {
                 var result = from request in context.VacationRequests
                              join vacationType in context.VacationTypes on request.VacationTypeId equals vacationType.Id
+                             where request.UserId == userId
+                             orderby request.CreatedDate descending
                              select new ListVacationRequestDto
                              {
                                  CreatedDate = request.CreatedDate,
@@ -40,7 +52,7 @@ namespace DataAccess.Concrete.EntityFramework
                                  VacationerPosition = request.VacationerPosition,
                                  VacationType = vacationType.Name
                              };
-                return await result.OrderByDescending(x=>x.CreatedDate).ToListAsync();
+                return await result.OrderByDescending(x => x.CreatedDate).ToListAsync();
             }
         }
     }

@@ -10,7 +10,8 @@ namespace DataAccess.Abstract
 {
     public interface IVacationRequestDal:IEntityRepository<VacationRequest>
     {
-        Task<VacationRequest> GetLast(int userId);
-        Task<List<ListVacationRequestDto>> GetList(int userId);
+        Task<VacationRequest> GetLast(string userId);
+        Task<List<ListVacationRequestDto>> GetList(string userId);
+        Task<int>  GenerateAndSetRequestNo(string userId);
     }
 }

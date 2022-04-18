@@ -12,56 +12,47 @@ namespace MvcUI.Controllers
 {
     public class AuthController : Controller
     {
-        private readonly IAuthService _authService;
-        private readonly ITokenService _tokenService;
-        private readonly IConfiguration _configuration;
 
-        public AuthController(IAuthService authService, ITokenService tokenService, IConfiguration configuration)
+        private readonly IAuthService _authService;
+
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _tokenService = tokenService;
-            _configuration = configuration;
         }
+
         [HttpGet]
-        public IActionResult Register()
-        {
-            return  View();
-        }
-        [HttpGet]
-        public IActionResult Login()
+        public async Task<IActionResult> Register()
         {
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             var result = await _authService.Register(registerDto);
-            if (!result.Success)
+            if (result.Success)
             {
-                return UnprocessableEntity(result.Message);
+                return RedirectToAction("Login");
             }
-            return RedirectToAction("Login", "Auth", result.Message);
+            return View();
         }
+        [HttpGet]
+        public async Task<IActionResult> Login()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             var result = await _authService.Login(loginDto);
-            if (!result.Success)
+            if (result.Success)
             {
-                return Unauthorized(result.Message);
+                return RedirectToAction("Index", "Home");
             }
-            var generatedToken = _tokenService.BuildToken(_configuration["Jwt:Key"].ToString(), _configuration["Jwt:Issuer"].ToString(),result.Data);
-            if (generatedToken != null)
-            {
-                //_httpContextAccessor.HttpContext.Request.Headers.Add("Authorization", "Bearer " + generatedToken);
-                HttpContext.Session.SetString("Token", generatedToken);
-
-
-                //Headers.Add("Authorization", "Bearer " + generatedToken);
-
-                return RedirectToAction("Index", "Home", result.Message);
-            }
-            return UnprocessableEntity();
+            return View();
         }
     }
 }

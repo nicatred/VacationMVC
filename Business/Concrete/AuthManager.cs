@@ -14,67 +14,53 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Http;
 using DataAccess.Entites.Concrete;
 using DataAccess.Dtos.Concrete;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
-        private readonly IUserDal _userDal;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
-        private readonly ITokenService _tokenService;
-        private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public AuthManager(IUserDal userDal, IMapper mapper, ITokenService tokenService, IConfiguration configuration)
+        public AuthManager(SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, IMapper mapper)
         {
-            _userDal = userDal;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _userManager = userManager;
             _mapper = mapper;
-            _tokenService = tokenService;
-            _configuration = configuration;
-            _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
         }
-        public async Task<IDataResult<User>> Login(LoginDto loginDto)
+        public async Task<IResult> Login(LoginDto loginDto)
         {
-            var existUser = await _userDal.GetAsync(x => x.Email == loginDto.Email);
-            if (existUser == null)
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            if (result)
             {
-                return new ErrorDataResult<User>(Messages.NotExsistUser);
+                await _signInManager.SignInAsync(user, isPersistent: false);
+                return new SuccessResult(Messages.SuccessLogin);
             }
-            if (!HashingHelper.VerifyPasswordHash(loginDto.Password, existUser.PasswordHash, existUser.PasswordSalt))
-            {
-                return new ErrorDataResult<User>(Messages.FailLoginUser);
-            }
-            return new SuccessDataResult<User>(existUser,Messages.SuccessLogin);
-            //var generatedToken = _tokenService.BuildToken(_configuration["Jwt:Key"].ToString(), _configuration["Jwt:Issuer"].ToString(), existUser);
-            //if (generatedToken != null)
-            //{
-            //_httpContextAccessor.HttpContext.Request.Headers.Add("Authorization", "Bearer " + generatedToken);
-            //_httpContextAccessor.HttpContext.Session.SetString();
-            //   HttpContext.Session.SetString("Token", generatedToken);
-
-            //Headers.Add("Authorization", "Bearer " + generatedToken);
-
-            //}
-            //return new ErrorResult(Messages.ErrorAccessTokenCreating);
+            return new ErrorResult(Messages.FailLoginUser);
         }
 
         public async Task<IResult> Register(RegisterDto registerDto)
         {
-            var existEmail = await _userDal.GetAsync(x => x.Email == registerDto.Email);
-            if (existEmail != null)
+            var mappedEntity = _mapper.Map<RegisterDto, AppUser>(registerDto);
+            mappedEntity.UserName = registerDto.Name + registerDto.SurName;
+            var result = await _userManager.CreateAsync(mappedEntity, registerDto.Password);
+              
+            var resultaa =   await _roleManager.CreateAsync(new IdentityRole("vacationer"));
+            var roles = await _roleManager.Roles.ToListAsync();
+            await _userManager.AddToRoleAsync(mappedEntity,"vacationer");
+            if (result.Succeeded)
             {
-                return new ErrorResult(Messages.AlreadyExsistEmail);
+                return new SuccessResult(Messages.SuccessRegister);
             }
-            byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(registerDto.Password, out passwordHash, out passwordSalt);
-            var mappedUser = _mapper.Map<RegisterDto, User>(registerDto);
-            mappedUser.PasswordHash = passwordHash;
-            mappedUser.PasswordSalt = passwordSalt;
-            await _userDal.AddAsync(mappedUser);
-            return new SuccessResult(Messages.SuccessRegister);
+            return new ErrorResult(Messages.ErrorEntityAdded);
         }
+
     }
 }
