@@ -21,8 +21,8 @@ namespace DataAccess.Entites.Concrete
         public VacationType VacationType { get; set; }
         public VacationRequestStatus VacationRequestStatus { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string UserId { get; set; }
+        public AppUser User { get; set; }
         public string RequestNo { get; set; }
     }
 }

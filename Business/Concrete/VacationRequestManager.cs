@@ -7,9 +7,11 @@ using DataAccess.Abstract;
 using DataAccess.Dtos.Concrete;
 using DataAccess.Entites.Concrete;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,13 +21,17 @@ namespace Business.Concrete
     {
         private readonly IVacationRequestDal _vacationRequestDal;
         private readonly IMapper _mapper;
-        private readonly IUserDal _userDal;
+        private readonly UserManager<AppUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
-        public VacationRequestManager(IVacationRequestDal vacationRequestDal, IMapper mapper, IUserDal userDal)
+        public VacationRequestManager(IVacationRequestDal vacationRequestDal, IMapper mapper, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<AppUser> signInManager)
         {
             _vacationRequestDal = vacationRequestDal;
             _mapper = mapper;
-            _userDal = userDal;
+            _userManager = userManager;
+            _roleManager = roleManager;
+            _signInManager = signInManager;
         }
 
         public async Task<IResult> Add(VacationRequestDto vacationRequestDto)
@@ -33,26 +39,17 @@ namespace Business.Concrete
             var mappedEntity =  _mapper.Map<VacationRequestDto, VacationRequest>(vacationRequestDto);
             mappedEntity.CreatedDate = DateTime.Now;
             mappedEntity.VacationRequestStatus = DataAccess.Entites.Enums.VacationRequestStatus.Created;
-            mappedEntity.UserId = UserIdProvaider.GetUserId();
-            var lastRequest = await _vacationRequestDal.GetLast(UserIdProvaider.GetUserId());
-            if (lastRequest != null) 
-            {
-                int lastRequestNo = Convert.ToInt32(lastRequest.RequestNo.Substring(lastRequest.RequestNo.Length - 4));
-                mappedEntity.RequestNo = "Q-" + DateTime.Now.ToString("YY-MM-") + lastRequestNo ;
-            }
-            else
-            {
-                int firstRequsetNo = 0001;
-                mappedEntity.RequestNo = "Q-" + DateTime.Now.ToString("YY-MM-") + firstRequsetNo;
-            }
-
+            var user = await _userManager.FindByNameAsync(UserIdProvaider.GetUserId());
+            mappedEntity.UserId = user.Id;
             await _vacationRequestDal.AddAsync(mappedEntity);
+            var rows =    await _vacationRequestDal.GenerateAndSetRequestNo(user.Id);
             return new SuccessResult(Messages.EntityAdded);
         }
 
         public  async Task<IDataResult<List<ListVacationRequestDto>>> GetList()
         {
-            var list = await _vacationRequestDal.GetList(UserIdProvaider.GetUserId());
+            var user = await _userManager.FindByNameAsync(UserIdProvaider.GetUserId());
+            var list = await _vacationRequestDal.GetList(user.Id);
             return new SuccessDataResult<List<ListVacationRequestDto>>(list, Messages.EntityGetList);
         }
 

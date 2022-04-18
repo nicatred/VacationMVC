@@ -11,7 +11,7 @@ namespace Business.Abstract
 {
     public interface IAuthService
     {
-        public Task<IDataResult<User>> Login(LoginDto loginDto);
+        public Task<IResult> Login(LoginDto loginDto);
         public Task<IResult> Register(RegisterDto registerDto);
     }
 }

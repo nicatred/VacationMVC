@@ -1,4 +1,6 @@
 ﻿using DataAccess.Entites.Abstract;
+using DataAccess.Entites.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfReporitoryBase<TEntity, TContext>
         where TEntity : class, IEntity, new()
-        where TContext : DbContext, new()
+        where TContext : IdentityDbContext<AppUser>, new()
     {
         public async Task AddAsync(TEntity entity)
         {
