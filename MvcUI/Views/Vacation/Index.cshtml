@@ -1,5 +1,9 @@
 ﻿@model VacationRequestViewModel
+@{
+    Layout = "_Layout";
+}
 <!--Index-->
+<div asp-validation-summary="All"></div>
 <div id="vacationFormIndex" class="container">
     <!-- Contact Section-->
     <section class="page-section" id="contact">
@@ -26,16 +30,18 @@
                     <div class="col-md-12">
                         <label for="inputName" class="form-label">Ad,Soyad,Ata adı</label>
                         <input type="text" class="form-control" id="inputName" asp-for="VacationRequestDto.VacationerFullName">
-                        <div class="invalid-feedback" data-sb-feedback="inputName:required">A name is required.</div>
+                        <span asp-validation-for="VacationRequestDto.VacationerFullName" class="text-danger"></span>
                     </div>
                     <div class="col-md-12">
                         <label for="inputPosition" class="form-label">Vəzifə</label>
                         <input type="text" class="form-control" id="inputPosition" asp-for="VacationRequestDto.VacationerPosition">
+                        <span asp-validation-for="VacationRequestDto.VacationerPosition" class="text-danger"></span>
                     </div>
                     <div class="col-md-8">
                         <div id="date-picker-example" class="md-form md-outline input-with-post-icon datetimepicker">
                             <label for="startVacationInput" style="color: #4f4f4f ">Məzuniyyətin başlama tarixi</label>
                             <input type="date" id="startVacationInput" class="form-control" asp-for="VacationRequestDto.StartVacation">
+                            <span asp-validation-for="VacationRequestDto.StartVacation" class="text-danger"></span>
                         </div>
                     </div>
                     <div>
@@ -43,6 +49,7 @@
                             <div id="date-picker-example" class="md-form md-outline input-with-post-icon datetimepicker">
                                 <label for="endVacationInput" style="color: #4f4f4f ">Məzuniyyətin bitmə tarixi</label>
                                 <input type="date" id="endVacationInput" class="form-control" asp-for="VacationRequestDto.EndVacation">
+                                <span asp-validation-for="VacationRequestDto.EndVacation" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="col-md-4" style="margin-top:25px;">
@@ -58,14 +65,18 @@
                     <div class="col-md-12">
                         <label for="replacmentPerson" class="form-label">Əvəz edən şəxsin Ad,Soyad,Ata adı</label>
                         <input type="text" class="form-control" id="replacmentPerson" asp-for="VacationRequestDto.ReplacementPerson">
+                        <span asp-validation-for="VacationRequestDto.ReplacementPerson" class="text-danger"></span>
                     </div>
                     <div class="col-md-12" style="margin-top:17px">
                         <select class="form-select form-select-lg mb-4" aria-label=".form-select-lg" asp-for="VacationRequestDto.VacationTypeId"
                                 asp-items="@(new SelectList(Model.VacationTypes, nameof(Model.VacationType.Id), nameof(Model.VacationType.Name)))">
-                            <option>Məzuniyyət növünü seçin</option>
+                            <option value="0">Məzuniyyət növünü seçin</option>
                         </select>
+                        <span asp-validation-for="VacationRequestDto.VacationTypeId" class="text-danger"></span>
                     </div>
-                    <button type="submit">Yarat</button>
+                    <div class="col-md-8" style="margin-top:17px">
+                        <button type="submit" class="button-accept">Yarat</button>
+                    </div>
                 </form>
 
             </div>

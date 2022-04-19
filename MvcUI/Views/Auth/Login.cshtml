@@ -11,18 +11,18 @@
         <!-- Login Form -->
         <form method="post" asp-controller="Auth" asp-action="Login">
             <input type="text" id="login" class="fadeIn second" placeholder="E-poçt"  asp-for="@Model.Email">
-            <input type="text" id="password" class="fadeIn third"  placeholder="password" asp-for="@Model.Password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="text" id="password" class="fadeIn third"  placeholder="Şifrə" asp-for="@Model.Password">
+            <input type="submit" class="fadeIn fourth" value="Giriş et">
         </form>
 
         <!-- Remind Passowrd -->
         <div id="formFooter">
-            <a class="underlineHover" href="#"><p>Forgot Password?</p></a>
+            <a class="underlineHover" href="#"><p>Şifrəni unutmusunuz?</p></a>
         </div>
 
         <!-- Register -->
         <div id="formFooter">
-            <a class="underlineHover" asp-controller="Auth" asp-action="Register"><p>Register</p></a>
+            <a class="underlineHover" asp-controller="Auth" asp-action="Register"><p>Qeydiyyat</p></a>
         </div>
     </div>
 </div>

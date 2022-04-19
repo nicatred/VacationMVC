@@ -1,6 +1,10 @@
 ﻿@model List<ListVacationRequestDto>
 <!--Index-->
+
 @*<a id="SenderToManager" onclick='SendToManager(id)' asp-controller="Vacation" asp-action="CreateVacationRequset" asp-route-vacationRequestId="" as>Rəhbərə göndər</a>*@
+<div>
+    <a class="button-accept " asp-controller="Vacation" asp-action="CreateVacationRequset"> Yeni Məzuniyyət tələbi yarat</a>
+</div>
 <table class="table" id="requestTable">
     <thead class="thead-dark">
         <tr>
@@ -48,13 +52,12 @@
                 <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
                 @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.Created)
                 {
-                    <td><a asp-controller="Vacation" asp-action="SendToManager" asp-route-vacationRequestId="@item.Id">Rəhbərə göndər</a></td>
+                    <td><a class="button-send"   asp-controller="Vacation" asp-action="SendToManager" asp-route-vacationRequestId="@item.Id">Rəhbərə göndər</a></td>
                 }
             </tr>
         }
     </tbody>
 </table>
-<a asp-controller="Vacation" asp-action="CreateVacationRequset">Məzuniyyət tələbnaməsi yarat</a>
 <!--End Index-->
 <script>
     $(function () {

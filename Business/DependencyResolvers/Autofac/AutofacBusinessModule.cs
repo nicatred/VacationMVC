@@ -14,6 +14,7 @@ namespace Business.DependencyResolvers.Autofac
         {
             builder.RegisterType<AuthManager>().As<IAuthService>().InstancePerLifetimeScope();
 
+            builder.RegisterType<AdminActionsManager>().As<IAdminActionsService>().InstancePerLifetimeScope();
 
             builder.RegisterType<VacationRequestManager>().As<IVacationRequestService>().InstancePerLifetimeScope();
             builder.RegisterType<EfVacationRequestDal>().As<IVacationRequestDal>().InstancePerLifetimeScope();

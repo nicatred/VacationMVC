@@ -23,7 +23,7 @@ namespace MvcUI.Controllers
         [Authorize(Roles = "vacationer")]
         public async Task<IActionResult> Index()
         {
-            var list = await _requestService.GetList();
+            var list = await _requestService.GetMyRequests();
             if (list.Success)
             {
                 return View(list.Data);

@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Dtos.Concrete;
+using DataAccess.Entites.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,7 @@ namespace MvcUI.Controllers
             {
                 return RedirectToAction("Login");
             }
+            ViewBag.Error = result.Message;
             return View();
         }
         [HttpGet]
@@ -50,7 +52,18 @@ namespace MvcUI.Controllers
             var result = await _authService.Login(loginDto);
             if (result.Success)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home",new { Area = result.Data});
+            }
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> LogOut()
+        {
+            var result = await _authService.LogOut();
+            if (result.Success)
+            {
+                return RedirectToAction("Login", "Auth");
             }
             return View();
         }

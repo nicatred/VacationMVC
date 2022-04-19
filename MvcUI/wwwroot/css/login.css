@@ -10,12 +10,7 @@ body {
     height: 100vh;
 }
 
-a {
-    color: white !important;
-    display: inline-block;
-    text-decoration: none !important;
-    font-weight: 400;
-}
+
 
 h2 {
     text-align: center;

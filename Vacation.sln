@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcUI", "MvcUI\MvcUI.csproj", "{CC4E5D32-E222-4980-9071-C1676EB64A42}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcUI", "MvcUI\MvcUI.csproj", "{CC4E5D32-E222-4980-9071-C1676EB64A42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{843A96A6-02F7-47A3-8762-5D235944C060}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{843A96A6-02F7-47A3-8762-5D235944C060}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Business", "Business\Business.csproj", "{5EBB12B1-0167-4B01-861D-3B91B24C4487}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Business", "Business\Business.csproj", "{5EBB12B1-0167-4B01-861D-3B91B24C4487}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
