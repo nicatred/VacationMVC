@@ -1,0 +1,69 @@
+﻿@model List<ListVacationRequestDto>
+@{
+    Layout = "_Layout";
+}
+<link href="~/css/buttons.css" rel="stylesheet" />
+<!-- Content Wrapper. Contains page content -->
+<button class="button-accept" role="button" asp-controller="Home" asp-action="AcceptRequest" asp-area="admin" >Tələbi qəbul et</button>
+
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">İşçilərin məzuniyyət üçün tələb cədvəli</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#Müraciət nömrəsi</th>
+                                        <th scope="col">İşçi</th>
+                                        <th scope="col">Vəzifə</th>
+                                        <th scope="col">Əvəz edən şəxs</th>
+                                        <th scope="col">Məzuniyyə başlama tarixi</th>
+                                        <th scope="col">Məzuniyyin bitmə tarixi</th>
+                                        <th scope="col">Məzuniyyətin növü</th>
+                                        <th scope="col">Yaradılma tarixi</th>
+                                        <th scope="col">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.RequestNo</td>
+                                            <td>@item.VacationerFullName</td>
+                                            <td>@item.VacationerPosition</td>
+                                            <td>@item.ReplacementPerson</td>
+                                            <td>@item.StartVacation.ToString("dd-MM-yyyy")</td>
+                                            <td>@item.EndVacation.ToString("dd-MM-yyyy")</td>
+                                            <td>@item.VacationType</td>
+                                            <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                                            @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.WasSentToManager)
+                                            {
+                                                <td >
+                                                    <a class="button-accept"  asp-controller="Home" asp-action="AcceptRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi qəbul et</a>
+                                                    <br>
+                                                    <a class="button-reject"  asp-controller="Home" asp-action="RejectRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi geri çevir</a>
+                                                </td>
+                                            }
+                                        </tr>
+
+                                    }
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+        <!-- /.col -->
+        <!-- /.container-fluid -->
+    </section>
+</div>

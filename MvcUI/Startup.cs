@@ -20,6 +20,8 @@ using DataAccess.Entites.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Business.Utilites.Identity;
+using Business.ValidationRules;
+using FluentValidation.AspNetCore;
 
 namespace MvcUI
 {
@@ -38,29 +40,25 @@ namespace MvcUI
             services.AddDbContext<VacationContext>(options => options.UseSqlServer(@"Server=DESKTOP-N\NICATRED;Initial Catalog = Vacation; Trusted_connection=true;"));
             services.AddIdentity<AppUser, IdentityRole>().AddEntityFrameworkStores<VacationContext>().AddDefaultTokenProviders();
 
-            services.Configure<IdentityOptions>(options => {
-                // password
+            services.Configure<IdentityOptions>(options =>
+            {
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireNonAlphanumeric = true;
 
-                // Lockout                
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
                 options.Lockout.AllowedForNewUsers = true;
 
-                // options.User.AllowedUserNameCharacters = "";
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = true;
                 options.SignIn.RequireConfirmedPhoneNumber = false;
             });
 
-            services.ConfigureApplicationCookie(options => {
-                //options.LoginPath = "/Auth/login";
-                //options.LogoutPath = "/Auth/Login";
-                //options.AccessDeniedPath = "/Auth/Login";
+            services.ConfigureApplicationCookie(options =>
+            {
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                 options.Cookie = new CookieBuilder
@@ -71,18 +69,14 @@ namespace MvcUI
                 };
             });
             services.AddSession();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<VacationRequestDtoValidatior>().RegisterValidatorsFromAssemblyContaining<RegisterValidator>());
             services.AddRazorPages();
             services.AddAutoMapper(typeof(MappingProfile));
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            //  services.AddDependencyResolvers(new ICoreModule[]
-            //{
-            //      new CoreModule(),
-            //});
+           
             ServiceTool.Create(services);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IConfiguration configuration, UserManager<AppUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
@@ -90,22 +84,24 @@ namespace MvcUI
                 app.UseDeveloperExceptionPage();
             }
 
-            //app.UseSession();
-            //app.Use(async (context, next) =>
-            //{
-            //    var token = context.Session.GetString("Token");
-            //    if (!string.IsNullOrEmpty(token))
-            //    {
-            //        context.Request.Headers.Add("Authorization", "Bearer " + token);
-            //    }
-            //    await next();
-            //});
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapAreaControllerRoute(
+                    name: "Admin",
+                    areaName: "admin",
+                    pattern: "admin/{controller=Home}/{action=Index}"
+            );
+
+                endpoints.MapControllerRoute(
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller}/{action}"
+            );   
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Auth}/{action=Login}/{id?}");

@@ -46,10 +46,10 @@ namespace Business.Concrete
             return new SuccessResult(Messages.EntityAdded);
         }
 
-        public  async Task<IDataResult<List<ListVacationRequestDto>>> GetList()
+        public  async Task<IDataResult<List<ListVacationRequestDto>>> GetMyRequests()
         {
             var user = await _userManager.FindByNameAsync(UserIdProvaider.GetUserId());
-            var list = await _vacationRequestDal.GetList(user.Id);
+            var list = await _vacationRequestDal.GetMyRequests(user.Id);
             return new SuccessDataResult<List<ListVacationRequestDto>>(list, Messages.EntityGetList);
         }
 

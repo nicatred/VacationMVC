@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ZtrYhiAkfOiyUTsFOUuU8wIf7+Vrnh6Qm6+jSlLa2jeCsxOQeH0o+9OpsPpXj5zarNhxH6aakiOnSUlSmbQdJQ==",
+  "dgSpecHash": "lldbsnZLlUSf9HEFG6rdr4fYCyBWmJipFgOw711DarB4s/KrM6KltSwG5O+yF9sFIdyw5iDwoOuWal7pQi+tIw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Nijatred\\source\\repos\\VacationMVC\\Business\\Business.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nijatred\\.nuget\\packages\\autofac\\6.3.0\\autofac.6.3.0.nupkg.sha512",
     "C:\\Users\\Nijatred\\.nuget\\packages\\automapper\\11.0.1\\automapper.11.0.1.nupkg.sha512",
+    "C:\\Users\\Nijatred\\.nuget\\packages\\fluentvalidation\\10.4.0\\fluentvalidation.10.4.0.nupkg.sha512",
     "C:\\Users\\Nijatred\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\Nijatred\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Nijatred\\.nuget\\packages\\microsoft.aspnetcore.authentication.cookies\\2.2.0\\microsoft.aspnetcore.authentication.cookies.2.2.0.nupkg.sha512",

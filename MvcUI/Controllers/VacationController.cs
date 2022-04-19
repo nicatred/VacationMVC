@@ -25,26 +25,31 @@ namespace MvcUI.Controllers
         [Authorize]
         public async Task<IActionResult> CreateVacationRequset()
         {
+
             var vacationTypes = await _vacationTypeService.GetAll();
             VacationRequestViewModel vacationRequestViewModel = new VacationRequestViewModel();
             if (vacationTypes.Success)
             {
                 vacationRequestViewModel.VacationTypes = vacationTypes.Data;
-                return View("Index",vacationRequestViewModel);
+
+                ViewBag.Error = vacationTypes.Message;
             }
-            return UnprocessableEntity(vacationTypes.Message);
+            return View("Index", vacationRequestViewModel);
         }
 
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateVacationRequset(VacationRequestDto vacationRequestDto)
         {
-            var result = await _requestService.Add(vacationRequestDto);
-            if (result.Success)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Index","Home");
+                var result = await _requestService.Add(vacationRequestDto);
+                if (result.Success)
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
-            return UnprocessableEntity();
+            return RedirectToAction("CreateVacationRequset");
         }
 
         [Authorize]

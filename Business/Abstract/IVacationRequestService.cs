@@ -11,7 +11,7 @@ namespace Business.Abstract
     public interface IVacationRequestService
     {
         Task<IResult> Add(VacationRequestDto vacationRequestDto);
-        Task<IDataResult<List<ListVacationRequestDto>>> GetList();
+        Task<IDataResult<List<ListVacationRequestDto>>> GetMyRequests();
         Task<IResult> SendToManager(int vacationRequestId);
 
     }

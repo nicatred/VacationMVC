@@ -18,6 +18,7 @@ using DataAccess.Entites.Concrete;
 using DataAccess.Dtos.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DataAccess.Entites.Enums;
 
 namespace Business.Concrete
 {
@@ -34,16 +35,24 @@ namespace Business.Concrete
             _userManager = userManager;
             _mapper = mapper;
         }
-        public async Task<IResult> Login(LoginDto loginDto)
+        public async Task<IDataResult<string>> Login(LoginDto loginDto)
         {
             var user = await _userManager.FindByEmailAsync(loginDto.Email);
             var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
             if (result)
             {
                 await _signInManager.SignInAsync(user, isPersistent: false);
-                return new SuccessResult(Messages.SuccessLogin);
+                var userRole = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
+               
+                return new SuccessDataResult<string>(userRole, Messages.SuccessLogin);
             }
-            return new ErrorResult(Messages.FailLoginUser);
+            return new ErrorDataResult<string>(Messages.FailLoginUser);
+        }
+
+        public async Task<IResult> LogOut()
+        {
+            await _signInManager.SignOutAsync();
+            return new SuccessResult(Messages.EntityDeleted);
         }
 
         public async Task<IResult> Register(RegisterDto registerDto)
@@ -59,7 +68,7 @@ namespace Business.Concrete
             {
                 return new SuccessResult(Messages.SuccessRegister);
             }
-            return new ErrorResult(Messages.ErrorEntityAdded);
+            return new ErrorResult(result.Errors.FirstOrDefault().Description);
         }
 
     }
