@@ -336,13 +336,6 @@ C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\zh-Hant\Micros
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Home\Index.cshtml.g.cs
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\.bundlewatch.config.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\.eslintrc.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\build\config\.eslintrc.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\build\npm\.eslintrc.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\composer.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\package-lock.json
-C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\bin\Debug\net5.0\AdminLTE-3.2.0\package.json
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\Shared\_Layout.cshtml.g.cs
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewImports.cshtml.g.cs
 C:\Users\Nijatred\source\repos\VacationMVC\MvcUI\obj\Debug\net5.0\Razor\Areas\Admin\Views\_ViewStart.cshtml.g.cs

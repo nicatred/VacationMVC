@@ -19,5 +19,7 @@ namespace DataAccess.Dtos.Concrete
         public VacationRequestStatus VacationRequestStatus { get; set; }
         public DateTime CreatedDate { get; set; }
         public string RequestNo { get; set; }
+        public bool IsIncludedWeekend { get; set; }
+
     }
 }

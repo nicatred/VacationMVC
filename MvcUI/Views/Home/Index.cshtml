@@ -1,6 +1,5 @@
 ﻿@model List<ListVacationRequestDto>
 <!--Index-->
-
 @*<a id="SenderToManager" onclick='SendToManager(id)' asp-controller="Vacation" asp-action="CreateVacationRequset" asp-route-vacationRequestId="" as>Rəhbərə göndər</a>*@
 <div>
     <a class="button-accept " asp-controller="Vacation" asp-action="CreateVacationRequset"> Yeni Məzuniyyət tələbi yarat</a>
@@ -17,6 +16,7 @@
             <th scope="col">Məzuniyyətin növü</th>
             <th scope="col">Müraciət statusu</th>
             <th scope="col">Yaradılma tarixi</th>
+            <th scope="col">Həftə sonu daxildirmi?</th>
             <th scope="col">#</th>
 
         </tr>
@@ -50,9 +50,21 @@
                         break;
                 }
                 <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                @if (item.IsIncludedWeekend)
+                {
+                    <td>Həftə sonu daxil olmaqla</td>
+                }
+                else
+                {
+                    <td>Həftə sonu daxil deyil</td>
+                }
+
+
+
+
                 @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.Created)
                 {
-                    <td><a class="button-send"   asp-controller="Vacation" asp-action="SendToManager" asp-route-vacationRequestId="@item.Id">Rəhbərə göndər</a></td>
+                    <td><a class="button-send" asp-controller="Vacation" asp-action="SendToManager" asp-route-vacationRequestId="@item.Id">Rəhbərə göndər</a></td>
                 }
             </tr>
         }

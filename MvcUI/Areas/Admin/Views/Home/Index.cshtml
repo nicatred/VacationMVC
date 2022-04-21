@@ -4,7 +4,6 @@
 }
 <link href="~/css/buttons.css" rel="stylesheet" />
 <!-- Content Wrapper. Contains page content -->
-<button class="button-accept" role="button" asp-controller="Home" asp-action="AcceptRequest" asp-area="admin" >Tələbi qəbul et</button>
 
 <div class="content-wrapper">
     <section class="content">
@@ -28,30 +27,39 @@
                                         <th scope="col">Məzuniyyin bitmə tarixi</th>
                                         <th scope="col">Məzuniyyətin növü</th>
                                         <th scope="col">Yaradılma tarixi</th>
+                                        <th scope="col">Həftə sonu daxildirmi?</th>
                                         <th scope="col">#</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-                                        <tr>
-                                            <td>@item.RequestNo</td>
-                                            <td>@item.VacationerFullName</td>
-                                            <td>@item.VacationerPosition</td>
-                                            <td>@item.ReplacementPerson</td>
-                                            <td>@item.StartVacation.ToString("dd-MM-yyyy")</td>
-                                            <td>@item.EndVacation.ToString("dd-MM-yyyy")</td>
-                                            <td>@item.VacationType</td>
-                                            <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
-                                            @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.WasSentToManager)
-                                            {
-                                                <td >
-                                                    <a class="button-accept"  asp-controller="Home" asp-action="AcceptRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi qəbul et</a>
-                                                    <br>
-                                                    <a class="button-reject"  asp-controller="Home" asp-action="RejectRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi geri çevir</a>
-                                                </td>
-                                            }
-                                        </tr>
+                                    <tr>
+                                        <td>@item.RequestNo</td>
+                                        <td>@item.VacationerFullName</td>
+                                        <td>@item.VacationerPosition</td>
+                                        <td>@item.ReplacementPerson</td>
+                                        <td>@item.StartVacation.ToString("dd-MM-yyyy")</td>
+                                        <td>@item.EndVacation.ToString("dd-MM-yyyy")</td>
+                                        <td>@item.VacationType</td>
+                                        <td>@item.CreatedDate.ToString("dd-MM-yyyy")</td>
+                                        @if (item.IsIncludedWeekend)
+                                        {
+                                            <td>Həftə sonu daxil olmaqla</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Həftə sonu daxil deyil</td>
+                                        }
+                                        @if (item.VacationRequestStatus == DataAccess.Entites.Enums.VacationRequestStatus.WasSentToManager)
+                                        {
+                                            <td>
+                                                <a class="button-accept" asp-controller="Home" asp-action="AcceptRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi qəbul et</a>
+                                                <br>
+                                                <a class="button-reject" asp-controller="Home" asp-action="RejectRequest" asp-area="admin" asp-route-vacationRequestId="@item.Id">Tələbi geri çevir</a>
+                                            </td>
+                                        }
+                                    </tr>
 
                                     }
                             </table>
