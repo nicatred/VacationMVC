@@ -43,7 +43,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  VacationRequestStatus = request.VacationRequestStatus,
                                  VacationerFullName = request.VacationerFullName,
                                  VacationerPosition = request.VacationerPosition,
-                                 VacationType = vacationType.Name
+                                 VacationType = vacationType.Name,
+                                 IsIncludedWeekend =  request.IsIncludedWeekend
                              };
                 return await result.OrderByDescending(x => x.CreatedDate).ToListAsync();
             }
@@ -76,7 +77,8 @@ namespace DataAccess.Concrete.EntityFramework
                                  VacationRequestStatus = request.VacationRequestStatus,
                                  VacationerFullName = request.VacationerFullName,
                                  VacationerPosition = request.VacationerPosition,
-                                 VacationType = vacationType.Name
+                                 VacationType = vacationType.Name,
+                                 IsIncludedWeekend = request.IsIncludedWeekend
                              };
                 return await result.OrderByDescending(x => x.CreatedDate).ToListAsync();
             }
